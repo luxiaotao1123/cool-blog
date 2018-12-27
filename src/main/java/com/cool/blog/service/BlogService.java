@@ -10,4 +10,8 @@ public interface BlogService {
      */
     R getBlogPage(PageHelper pageHelper);
 
+    /**
+     * 获取博客详情
+     */
+    R getBlogDetail(String id);
 }
