@@ -1,5 +1,5 @@
 server:
-  port: 8472
+  port: 8088
   tomcat:
     uri-encoding: UTF-8
 
@@ -9,8 +9,13 @@ spring:
   profiles:
     active: @profileActive@
   datasource:
-    url: jdbc:mysql://luxiaotao.top:3306/cool_boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&verifyServerCertificate=false
+    url: jdbc:mysql://luxiaotao.top:3306/cool_blog?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&verifyServerCertificate=false
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: xltys1995
 
+mybatis:
+  mapperLocations: classpath*:mapper/*Mapper.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+    cache-enabled: true

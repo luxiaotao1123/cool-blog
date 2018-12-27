@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cool.blog.mapper.BlogMapper">
+  <resultMap id="BaseResultMap" type="com.cool.blog.model.domain.Blog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="label" jdbcType="VARCHAR" property="label" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="preview" jdbcType="VARCHAR" property="preview" />
+    <result column="thumpreview" jdbcType="VARCHAR" property="thumpreview" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, label, update_time, userId, status, summary, preview, thumpreview, deleted, 
+    create_time, content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cool_blog
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cool_blog
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.cool.blog.model.domain.Blog">
+    insert into cool_blog (id, title, label, 
+      update_time, userId, status, 
+      summary, preview, thumpreview, 
+      deleted, create_time, content
+      )
+    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{userid,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, 
+      #{summary,jdbcType=VARCHAR}, #{preview,jdbcType=VARCHAR}, #{thumpreview,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cool.blog.model.domain.Blog">
+    insert into cool_blog
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="label != null">
+        label,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="preview != null">
+        preview,
+      </if>
+      <if test="thumpreview != null">
+        thumpreview,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="preview != null">
+        #{preview,jdbcType=VARCHAR},
+      </if>
+      <if test="thumpreview != null">
+        #{thumpreview,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cool.blog.model.domain.Blog">
+    update cool_blog
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null">
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="preview != null">
+        preview = #{preview,jdbcType=VARCHAR},
+      </if>
+      <if test="thumpreview != null">
+        thumpreview = #{thumpreview,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cool.blog.model.domain.Blog">
+    update cool_blog
+    set title = #{title,jdbcType=VARCHAR},
+      label = #{label,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      userId = #{userid,jdbcType=BIGINT},
+      status = #{status,jdbcType=TINYINT},
+      summary = #{summary,jdbcType=VARCHAR},
+      preview = #{preview,jdbcType=VARCHAR},
+      thumpreview = #{thumpreview,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cool.blog.model.domain.Blog">
+    update cool_blog
+    set title = #{title,jdbcType=VARCHAR},
+      label = #{label,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      userId = #{userid,jdbcType=BIGINT},
+      status = #{status,jdbcType=TINYINT},
+      summary = #{summary,jdbcType=VARCHAR},
+      preview = #{preview,jdbcType=VARCHAR},
+      thumpreview = #{thumpreview,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!--博客分页-->
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from cool_blog
+    order by update_time
+    limit #{pageIndex}, #{pageSize}
+  </select>
+</mapper>
