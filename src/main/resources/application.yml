@@ -1,0 +1,16 @@
+server:
+  port: 8472
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  application:
+    name: @pom.artifactId@
+  profiles:
+    active: @profileActive@
+  datasource:
+    url: jdbc:mysql://luxiaotao.top:3306/cool_boot?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false&verifyServerCertificate=false
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: xltys1995
+
