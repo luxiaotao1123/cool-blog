@@ -7,7 +7,7 @@ public class PageHelper {
     private int pageSize=8;
 
     public int getPageIndex() {
-        return pageIndex;
+        return (this.pageIndex - 1) * this.pageSize;
     }
 
     public void setPageIndex(int pageIndex) {
@@ -22,8 +22,8 @@ public class PageHelper {
         this.pageSize = pageSize;
     }
 
-    public int index() {
-        return (getPageIndex() - 1) * getPageSize();
-    }
+//    public int index() {
+//        return (this.pageIndex - 1) * this.pageSize;
+//    }
 
 }

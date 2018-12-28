@@ -1,8 +1,8 @@
 package com.cool.blog.mapper;
 
+import com.cool.blog.common.entity.PageHelper;
 import com.cool.blog.model.domain.Blog;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,5 +24,7 @@ public interface BlogMapper {
 
     int updateByPrimaryKey(Blog record);
 
-    List<Blog> selectByPage(@Param("pageIndex")Integer pageIndex,@Param("pageSize")Integer pageSize);
+    List<Blog> selectByPage(PageHelper pageHelper);
+
+    int selectAmount();
 }

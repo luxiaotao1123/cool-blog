@@ -1,4 +1,4 @@
-package com.cool.blog.common;
+package com.cool.blog.common.utils;
 
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;

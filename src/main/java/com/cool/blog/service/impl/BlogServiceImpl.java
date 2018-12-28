@@ -21,12 +21,12 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public R getBlogPage(PageHelper pageHelper) {
         PageHelper page = Optional.ofNullable(pageHelper).orElse(new PageHelper());
-        List<Blog> blogs = blogMapper.selectByPage(page.index(), page.getPageSize());
+        List<Blog> blogs = blogMapper.selectByPage(page);
         if (blogs.isEmpty()){
             return R.empty();
         }
         blogs.forEach(Blog::removeContent);
-        return R.ok(blogs);
+        return R.page(blogs, blogMapper.selectAmount());
     }
 
     @Override

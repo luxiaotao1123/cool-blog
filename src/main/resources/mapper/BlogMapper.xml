@@ -194,7 +194,22 @@
     <!--<include refid="Base_Column_List" />-->
     id, title, label, update_time, userId, status, summary, preview, thumpreview, deleted, create_time
     from cool_blog
+    where 1=1
+    <!--<if test="label != null">-->
+      <!--label = #{label}-->
+    <!--</if>-->
     order by update_time desc
     limit #{pageIndex}, #{pageSize}
+  </select>
+  <!--博客分页总数-->
+  <select id="selectAmount" resultType="java.lang.Integer">
+    select
+    count(1)
+    from cool_blog
+    where 1=1
+    <!--<if test="label != null">-->
+      <!--label = #{label}-->
+    <!--</if>-->
+    order by update_time desc
   </select>
 </mapper>
