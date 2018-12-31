@@ -1,7 +1,6 @@
 .idea/
 *.iml
 *.class
-*.jar
 LOG_PATH_IS_UNDEFINED/*
 LOG_FILE_IS_UNDEFINED/*
 logs/*
