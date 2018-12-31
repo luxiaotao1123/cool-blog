@@ -4,8 +4,7 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
-import com.alipay.api.request.AlipayTradePagePayRequest;
-import com.alipay.api.request.AlipayTradeQueryRequest;
+import com.alipay.api.request.*;
 import com.cool.blog.common.constant.AlipayConfig;
 import org.springframework.stereotype.Service;
 
@@ -92,6 +91,7 @@ public class AlipayService {
             //付款金额
             String total_amount = new String(request.getParameter("total_amount").getBytes(StandardCharsets.ISO_8859_1),
                     StandardCharsets.UTF_8);
+            System.out.println("同步通知");
             System.out.println("trade_no:"+trade_no+"<br/>out_trade_no:"+out_trade_no+"<br/>total_amount:"+total_amount);
             return "ok";
         }
@@ -151,6 +151,7 @@ public class AlipayService {
                 //注意：
                 //付款完成后，支付宝系统发送该交易状态通知
             }
+            System.out.println("异步通知");
             System.out.println("trade_no:"+trade_no+"<br/>out_trade_no:"+out_trade_no+"<br/>total_amount:"+total_amount);
             return "ok";
         }
@@ -186,7 +187,10 @@ public class AlipayService {
        return alipayClient.execute(alipayRequest).getBody();
     }
 
-    public void closePay(){
+    /**
+     * 关闭交易
+     */
+    public String closePay(){
         AlipayClient alipayClient = new DefaultAlipayClient(
                 AlipayConfig.URL,
                 AlipayConfig.APP_ID,
@@ -197,7 +201,7 @@ public class AlipayService {
                 AlipayConfig.SIGN_TYPE);
 
         //设置请求参数
-        AlipayTradeQueryRequest alipayRequest = new AlipayTradeQueryRequest();
+        AlipayTradeCloseRequest alipayRequest = new AlipayTradeCloseRequest();
 
         // 唯一订单号
         String out_trade_no = "1234567890";
@@ -205,11 +209,99 @@ public class AlipayService {
         alipayRequest.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\"}");
 
         //请求
+        String result = null;
         try {
-            String result = alipayClient.execute(alipayRequest).getBody();
+            result = alipayClient.execute(alipayRequest).getBody();
         } catch (AlipayApiException e) {
             e.printStackTrace();
         }
+        return result;
+    }
+
+    /**
+     * 退款
+     */
+    public String alipayRefund(){
+        AlipayClient alipayClient = new DefaultAlipayClient(
+                AlipayConfig.URL,
+                AlipayConfig.APP_ID,
+                AlipayConfig.APP_PRIVATE_KEY,
+                AlipayConfig.FORMAT,
+                AlipayConfig.CHARSET,
+                AlipayConfig.APP_PUBLIC_KEY,
+                AlipayConfig.SIGN_TYPE);
+
+        //设置请求参数
+        AlipayTradeRefundRequest alipayRequest = new AlipayTradeRefundRequest();
+
+        // 唯一订单号
+        String out_trade_no = "1234567890";
+
+        //需要退款的金额，该金额不能大于订单金额，必填
+        String refund_amount = "100";
+
+        //退款的原因说明
+        String refund_reason = "其他";
+
+        //标识一次退款请求，同一笔交易多次退款需要保证唯一，如需部分退款，则此参数必传
+        String out_request_no = "0987654321";
+
+        alipayRequest.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\","
+//                + "\"trade_no\":\""+ trade_no +"\","
+                + "\"refund_amount\":\""+ refund_amount +"\","
+                + "\"refund_reason\":\""+ refund_reason +"\","
+                + "\"out_request_no\":\""+ out_request_no +"\"}");
+
+        //请求
+        String result = null;
+        try {
+            result = alipayClient.execute(alipayRequest).getBody();
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }
+
+    /**
+     * 退款查询
+     */
+    public String alipayRefundQuery(){
+        AlipayClient alipayClient = new DefaultAlipayClient(
+                AlipayConfig.URL,
+                AlipayConfig.APP_ID,
+                AlipayConfig.APP_PRIVATE_KEY,
+                AlipayConfig.FORMAT,
+                AlipayConfig.CHARSET,
+                AlipayConfig.APP_PUBLIC_KEY,
+                AlipayConfig.SIGN_TYPE);
+
+        //设置请求参数
+        AlipayTradeFastpayRefundQueryRequest alipayRequest = new AlipayTradeFastpayRefundQueryRequest();
+
+
+        // 唯一订单号
+        String out_trade_no = "1234567890";
+
+        //请求退款接口时，传入的退款请求号，如果在退款请求时未传入，则该值为创建交易时的外部交易号，必填
+        String out_request_no = "0987654321";
+
+        alipayRequest.setBizContent("{\"out_trade_no\":\""+ out_trade_no +"\","
+//                +"\"trade_no\":\""+ trade_no +"\","
+                +"\"out_request_no\":\""+ out_request_no +"\"}");
+
+        //请求
+        String result = null;
+        try {
+            result = alipayClient.execute(alipayRequest).getBody();
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+
+
     }
 
 
