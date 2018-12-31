@@ -19,8 +19,8 @@ public class AlipayConfig {
     public static final String CHARSET = "UTF-8";
 
     // 同步回调url
-    public static final String RETURN_URL = "http://luxiaotao.top:8088/alipay_return_url";
+    public static final String RETURN_URL = "http://luxiaotao.top:8088/callback/alipay_return_url";
 
     // 异步回调url
-    public static final String NOTIFY_URL = "http://luxiaotao.top:8088/alipay_notify_url";
+    public static final String NOTIFY_URL = "http://luxiaotao.top:8088/callback/alipay_notify_url";
 }
