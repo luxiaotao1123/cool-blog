@@ -1,5 +1,6 @@
 package com.cool.blog.common.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
@@ -75,6 +76,9 @@ public class AlipayService {
             params.put(name, valueStr);
         }
 
+        System.out.println("同步：");
+        System.out.println(JSONObject.toJSONString(params));
+
         boolean signVerified = false;
         try {
             signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.APP_PUBLIC_KEY, AlipayConfig.CHARSET, AlipayConfig.SIGN_TYPE);
@@ -118,6 +122,8 @@ public class AlipayService {
             valueStr = new String(valueStr.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
             params.put(name, valueStr);
         }
+        System.out.println("异步：");
+        System.out.println(JSONObject.toJSONString(params));
         boolean signVerified = false;
         try {
             signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.APP_PUBLIC_KEY, AlipayConfig.CHARSET, AlipayConfig.SIGN_TYPE); //调用SDK验证签名
