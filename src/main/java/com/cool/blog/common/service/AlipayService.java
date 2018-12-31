@@ -81,7 +81,7 @@ public class AlipayService {
 
         boolean signVerified = false;
         try {
-            signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.APP_PUBLIC_KEY, AlipayConfig.CHARSET, AlipayConfig.SIGN_TYPE);
+            signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.NOTIFY_PUBLIC_KEY, AlipayConfig.CHARSET, AlipayConfig.SIGN_TYPE);
         } catch (AlipayApiException e) {
             e.printStackTrace();
         }
@@ -126,7 +126,7 @@ public class AlipayService {
         System.out.println(JSONObject.toJSONString(params));
         boolean signVerified = false;
         try {
-            signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.APP_PUBLIC_KEY, AlipayConfig.CHARSET, AlipayConfig.SIGN_TYPE); //调用SDK验证签名
+            signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.NOTIFY_PUBLIC_KEY, AlipayConfig.CHARSET, AlipayConfig.SIGN_TYPE); //调用SDK验证签名
         } catch (AlipayApiException e) {
             e.printStackTrace();
         }
