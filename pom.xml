@@ -56,6 +56,14 @@
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
         </dependency>
+        <!--Ali pay-->
+        <dependency>
+            <groupId>com.alipay</groupId>
+            <artifactId>api</artifactId>
+            <version>3.4.49.ALL</version>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/lib/alipay-sdk-java-3.4.49.ALL.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <profiles>
