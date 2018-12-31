@@ -37,7 +37,7 @@ public class AlipayService {
         // 唯一订单号
         String out_trade_no = orderId;
         // 付款金额
-        String total_amount = "100";
+        String total_amount = "82421";
         // 订单名称
         String subject = "cool";
         // 商品描述，可空
